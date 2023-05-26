@@ -1,0 +1,17 @@
+{
+    "name": "waveterrain",
+    "author": "Micha Hanselmann",
+    "version": "1.0.0",
+    "description": "Interactive wave terrain synthesis demo",
+    "license": "MIT",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "dependencies": {
+        "three": "^0.152.2"
+    },
+    "devDependencies": {
+        "vite": "^4.3.9"
+    }
+}
