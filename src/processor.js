@@ -1,7 +1,11 @@
+import { default as initModule } from "./cpp/waveterrain.js";
+const Module = initModule();
+
 class Processor extends AudioWorkletProcessor {
     constructor() {
         super();
         this.port.onmessage = this.handleMessage.bind(this);
+        this.kernel = new Module.WaveTerrain();
     }
 
     handleMessage(message) {

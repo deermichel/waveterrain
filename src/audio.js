@@ -11,9 +11,9 @@ const startAudio = async (arg) => {
             console.log(message.data);
         }
     };
-    setInterval(() => {
-        processor.port.postMessage({ message: "get_terrain" });
-    }, 1000);
+    // setInterval(() => {
+    //     processor.port.postMessage({ message: "get_terrain" });
+    // }, 1000);
 }
 
 document.getElementById("button-start").addEventListener("click", startAudio);
