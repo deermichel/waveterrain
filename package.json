@@ -6,12 +6,15 @@
     "license": "MIT",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "tsc && vite build",
+        "preview": "vite preview"
     },
     "dependencies": {
-        "three": "^0.152.2"
+        "three": "^0.153.0"
     },
     "devDependencies": {
+        "@types/three": "^0.152.1",
+        "typescript": "^5.0.2",
         "vite": "^4.3.9"
     }
 }
