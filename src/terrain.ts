@@ -22,7 +22,15 @@ class Terrain implements Renderable {
         const geometry = new THREE.PlaneGeometry(2, 2, segments, segments);
         const material = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide, flatShading: true });
         const plane = new THREE.Mesh(geometry, material);
-        plane.rotateX(-Math.PI / 2);
+
+        // flip y and z axes
+        const { position } = geometry.attributes;
+        for (let i = 0; i < position.count; i++) {
+            const x = position.getX(i);
+            const y = position.getY(i);
+            const z = position.getZ(i);
+            position.setXYZ(i, x, z, y);
+        }
         return plane;
     }
 
@@ -31,9 +39,9 @@ class Terrain implements Renderable {
         const { position } = this.plane.geometry.attributes;
         for (let i = 0; i < position.count; i++) {
             const x = position.getX(i);
-            const y = position.getY(i);
-            const z = this.provider.evaluate(x, -y);
-            position.setZ(i, z);
+            const z = position.getZ(i);
+            const y = this.provider.evaluate(x, z);
+            position.setY(i, y);
         }
         // this.plane.geometry.computeVertexNormals();
         position.needsUpdate = true;

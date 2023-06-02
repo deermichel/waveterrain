@@ -4,5 +4,9 @@ interface Renderable {
 }
 
 interface TerrainProvider {
-    evaluate(x: number, y: number): number;
+    evaluate(x: number, z: number): number;
+}
+
+interface OrbitProvider {
+    evaluate(t: number): { x: number, z: number };
 }

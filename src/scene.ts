@@ -22,7 +22,7 @@ class Scene {
 
     public render() {
         this.scene.rotation.y += 0.005;
-        this.objects.forEach(object => object.render());
+        this.objects.forEach((object) => object.render());
         this.renderer.render(this.scene, this.camera);
     }
 
@@ -34,7 +34,7 @@ class Scene {
     }
 
     private createCamera() {
-        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 2, 4);
         camera.lookAt(0, 0, 0);
         return camera;
