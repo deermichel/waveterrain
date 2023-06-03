@@ -8,7 +8,7 @@ class SimpleTerrain implements TerrainProvider {
 
 class SimpleOrbit implements OrbitProvider {
     evaluate(t: number) {
-        return { x: Math.cos(2*Math.PI*t), z: Math.sin(2*Math.PI*t) };
+        return { x: 0.7*Math.cos(2*Math.PI*t), z: 0.8*Math.sin(4*Math.PI*t) };
     }
 }
 
@@ -48,6 +48,8 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
     private onMessage(event: MessageEvent) {
         if (event.data.type === "getTerrain") {
             this.getTerrain(event.data.segments);
+        } else if (event.data.type === "getOrbit") {
+            this.getOrbit(event.data.segments);
         }
     }
 
@@ -61,6 +63,17 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
             }
         }
         this.port.postMessage({ type: "terrain", terrain });
+    }
+
+    private getOrbit(segments: number) {
+        const orbit = new Float32Array(segments * 2);
+        for (let i = 0; i < segments; i++) {
+            const t = map(i, 0, segments, 0, 1);
+            const { x, z } = this.orbitProvider.evaluate(t);
+            orbit[i * 2 + 0] = x;
+            orbit[i * 2 + 1] = z;
+        }
+        this.port.postMessage({ type: "orbit", orbit });
     }
 }
 

@@ -20,6 +20,7 @@ class Orbit implements Renderable {
     public render() {
         this.updateSpheres();
         this.phase += 0.0002;
+        this.phase %= 1;
     }
 
     private createSpheres() {

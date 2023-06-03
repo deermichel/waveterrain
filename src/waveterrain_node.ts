@@ -2,6 +2,7 @@ import Deferred from "./deferred";
 
 class WaveTerrainNode extends AudioWorkletNode {
     private terrainDeferred?: Deferred<Float32Array>;
+    private orbitDeferred?: Deferred<Float32Array>;
 
     constructor(context: AudioContext) {
         super(context, "waveterrain_processor");
@@ -16,6 +17,13 @@ class WaveTerrainNode extends AudioWorkletNode {
             this.terrainDeferred.resolve(event.data.terrain);
             this.terrainDeferred = undefined;
         }
+        else if (event.data.type === "orbit") {
+            if (!this.orbitDeferred?.resolve) {
+                throw new Error("orbitDeferred not ready");
+            }
+            this.orbitDeferred.resolve(event.data.orbit);
+            this.orbitDeferred = undefined;
+        }
     }
 
     async getTerrain(segments: number) {
@@ -25,6 +33,15 @@ class WaveTerrainNode extends AudioWorkletNode {
             });
         }
         return this.terrainDeferred.promise;
+    }
+
+    async getOrbit(segments: number) {
+        if (!this.orbitDeferred) {
+            this.orbitDeferred = new Deferred(() => {
+                this.port.postMessage({ type: "getOrbit", segments });
+            });
+        }
+        return this.orbitDeferred.promise;
     }
 }
 
