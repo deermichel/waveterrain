@@ -1,27 +1,40 @@
 import Scene from "./scene";
 import Terrain from "./terrain";
-import Orbit from "./orbit";
+import WaveTerrainNode from "./waveterrain_node";
+import SampledTerrainProvider from "./sampled_terrain_provider";
 
-let i = 1;
-let dir = 0;
-const terrainProvider: TerrainProvider = {
-    evaluate: (x, y) => i * (x-y) * (x-1) * (x+1) * (y-1) * (y+1),
-};
-const orbitProvider: OrbitProvider = {
-    evaluate: (t) => ({ x: 0.7*Math.cos(2*Math.PI*t + Math.PI/3), z: 0.35*Math.sin(8*Math.PI*t) }),
-};
+const segments = 16;
 
 const scene = new Scene();
-const terrain = new Terrain(terrainProvider, 12);
+const terrainProvider = new SampledTerrainProvider();
+const terrain = new Terrain(terrainProvider, segments);
 scene.add(terrain);
-const orbit = new Orbit(orbitProvider, terrainProvider);
-scene.add(orbit);
+
+let audioContext = new AudioContext();
+let node: WaveTerrainNode;
+
+// click listener
+document.addEventListener("click", async () => {
+    if (audioContext.state === "suspended") {
+        await audioContext.audioWorklet.addModule("/src/waveterrain_processor.ts");
+        node = new WaveTerrainNode(audioContext);
+        // node.connect(audioContext.destination);
+
+        console.log("resuming audio context");
+        audioContext.resume();
+    }
+});
 
 // render loop
 const render = () => {
     requestAnimationFrame(render);
-    // i = dir ? i - 0.01 : i + 0.01;
-    if (i > 1) dir = 1; else if (i < -1) dir = 0;
+
+    if (node) {
+        node.getTerrain(segments).then((terrain) => {
+            terrainProvider.setTerrain(terrain, segments);
+        });
+    }
+
     scene.render();
 };
 render();
