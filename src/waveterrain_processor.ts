@@ -2,13 +2,26 @@ import { map } from "./utils";
 
 class SimpleTerrain implements TerrainProvider {
     evaluate(x: number, z: number) {
-        return (x-z) * (x-1) * (x+1) * (z-1) * (z+1);
+        // wrap x and z to [-1, 1)
+        while (x < -1) x += 2;
+        while (x >= 1) x -= 2;
+        while (z < -1) z += 2;
+        while (z >= 1) z -= 2;
+
+        const y = (x-z) * (x-1) * (x+1) * (z-1) * (z+1);
+        return y;
     }
 }
 
 class SimpleOrbit implements OrbitProvider {
     evaluate(t: number) {
-        return { x: 0.7*Math.cos(2*Math.PI*t), z: 0.8*Math.sin(4*Math.PI*t) };
+        // wrap t to [0, 1)
+        while (t < 0) t += 1;
+        while (t >= 1) t -= 1;
+
+        const x = 0.7*Math.cos(2*Math.PI*t) - 0.5;
+        const z = 0.8*Math.sin(4*Math.PI*t);
+        return { x, z };
     }
 }
 
@@ -38,7 +51,7 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
             }
 
             const frequency = 20;
-            this.phase += frequency / 44100;
+            this.phase += frequency / sampleRate;
             this.phase %= 1;
         }
 
