@@ -29,12 +29,25 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
     private terrainProvider: TerrainProvider;
     private orbitProvider: OrbitProvider;
     private phase: number;
+    private centerX: number;
+
+    static get parameterDescriptors() {
+        return [
+            {
+                name: "centerX",
+                defaultValue: 0,
+                minValue: -1,
+                maxValue: 1,
+            },
+        ];
+    }
 
     constructor() {
         super();
         this.terrainProvider = new SimpleTerrain();
         this.orbitProvider = new SimpleOrbit();
         this.phase = 0;
+        this.centerX = 0;
         this.port.onmessage = this.onMessage.bind(this);
     }
 
@@ -43,8 +56,13 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
         const numChannels = output.length;
         const numSamples = (numChannels > 0) ? output[0].length : 0;
 
+        this.centerX = params.centerX[0];
+
         for (let i = 0; i < numSamples; i++) {
-            const { x, z } = this.orbitProvider.evaluate(this.phase);
+            // TODO
+            const x = 0.7*Math.cos(2*Math.PI*this.phase) + this.centerX;
+
+            const { z } = this.orbitProvider.evaluate(this.phase);
             const y = this.terrainProvider.evaluate(x, z);
             for (let channel = 0; channel < numChannels; channel++) {
                 output[channel][i] = y;
@@ -82,7 +100,11 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
         const orbit = new Float32Array(segments * 2);
         for (let i = 0; i < segments; i++) {
             const t = map(i, 0, segments, 0, 1);
-            const { x, z } = this.orbitProvider.evaluate(t);
+            const { z } = this.orbitProvider.evaluate(t);
+
+            // TODO
+            const x = 0.7*Math.cos(2*Math.PI*t) + this.centerX;
+
             orbit[i * 2 + 0] = x;
             orbit[i * 2 + 1] = z;
         }

@@ -5,10 +5,28 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <title>waveterrain</title>
         <style>
-            body { margin: 0; }
+            body {
+                margin: 0;
+            }
+            .container {
+                height: 100vh;
+                display: flex;
+            }
+            #scene {
+                width: calc(100% - 320px);
+            }
         </style>
     </head>
     <body>
+        <div class="container">
+            <canvas id="scene"></canvas>
+            <div style="background-color: red; flex: 1;">
+                <div>
+                    <input type="range" id="cx" min="0" max="100">
+                    <label for="cx">Center X</label>
+                </div>
+            </div>
+        </div>
         <script type="module" src="/src/main.ts"></script>
     </body>
 </html>
