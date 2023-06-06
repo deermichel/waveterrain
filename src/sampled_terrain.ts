@@ -1,6 +1,6 @@
 import { map } from "./utils";
 
-class SampledTerrainProvider implements TerrainProvider {
+class SampledTerrain implements TerrainProvider {
     private terrain!: Float32Array;
     private segments!: number;
 
@@ -50,4 +50,4 @@ class SampledTerrainProvider implements TerrainProvider {
     }
 }
 
-export default SampledTerrainProvider;
+export default SampledTerrain;

@@ -1,8 +1,8 @@
 import Scene from "./scene";
 import Terrain from "./terrain";
 import WaveTerrainNode from "./waveterrain_node";
-import SampledTerrainProvider from "./sampled_terrain_provider";
-import SampledOrbitProvider from "./sampled_orbit_provider";
+import SampledTerrain from "./sampled_terrain";
+import SampledOrbit from "./sampled_orbit";
 import Orbit from "./orbit";
 import { map } from "./utils";
 
@@ -11,11 +11,11 @@ const segments = 16;
 const canvas = document.getElementById("scene") as HTMLCanvasElement;
 const scene = new Scene(canvas);
 
-const terrainProvider = new SampledTerrainProvider();
+const terrainProvider = new SampledTerrain();
 const terrain = new Terrain(terrainProvider, segments);
 scene.add(terrain);
 
-const orbitProvider = new SampledOrbitProvider();
+const orbitProvider = new SampledOrbit();
 const orbit = new Orbit(orbitProvider, terrainProvider);
 scene.add(orbit);
 
@@ -25,6 +25,10 @@ let node: WaveTerrainNode;
 document.getElementById("cx")!.addEventListener("input", (event: any) => {
     const v = map(event.target.value, 0, 100, -1, 1);
     node.parameters.get("centerX")!.value = v;
+});
+document.getElementById("cz")!.addEventListener("input", (event: any) => {
+    const v = map(event.target.value, 0, 100, -1, 1);
+    node.parameters.get("centerZ")!.value = v;
 });
 
 // click listener

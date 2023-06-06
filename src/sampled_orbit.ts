@@ -1,6 +1,6 @@
 import { lerp, map } from "./utils";
 
-class SampledOrbitProvider implements OrbitProvider {
+class SampledOrbit implements OrbitProvider {
     private orbit!: Float32Array;
     private segments!: number;
 
@@ -38,4 +38,4 @@ class SampledOrbitProvider implements OrbitProvider {
     }
 }
 
-export default SampledOrbitProvider;
+export default SampledOrbit;
