@@ -19,7 +19,9 @@ class Terrain implements Renderable {
     }
 
     private createPlane(segments: number) {
-        const geometry = new THREE.PlaneGeometry(2, 2, segments, segments);
+        // TODO
+        segments *= 8;
+        const geometry = new THREE.PlaneGeometry(4, 4, segments, segments);
         const material = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide, flatShading: true });
         const plane = new THREE.Mesh(geometry, material);
 

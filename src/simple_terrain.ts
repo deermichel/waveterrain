@@ -6,7 +6,7 @@ class SimpleTerrain implements TerrainProvider {
         while (z < -1) z += 2;
         while (z >= 1) z -= 2;
 
-        const y = 0*(x-z) * (x-1) * (x+1) * (z-1) * (z+1);
+        const y = (x-z) * (x-1) * (x+1) * (z-1) * (z+1);
         return y;
     }
 }

@@ -12,8 +12,8 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
         return [
             { name: "centerX", defaultValue: 0, minValue: -1, maxValue: 1 },
             { name: "centerZ", defaultValue: 0, minValue: -1, maxValue: 1 },
-            { name: "radiusX", defaultValue: 1, minValue: 0, maxValue: 1 },
-            { name: "radiusZ", defaultValue: 1, minValue: 0, maxValue: 1 },
+            { name: "radiusX", defaultValue: 1, minValue: 0, maxValue: 2 },
+            { name: "radiusZ", defaultValue: 1, minValue: 0, maxValue: 2 },
             { name: "freqX", defaultValue: 1, minValue: 0, maxValue: 10 },
             { name: "freqZ", defaultValue: 1, minValue: 0, maxValue: 10 },
             { name: "phaseShift", defaultValue: Math.PI / 2, minValue: 0, maxValue: 2 * Math.PI },
@@ -48,7 +48,7 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
                 output[channel][i] = y;
             }
 
-            const frequency = 20;
+            const frequency = 120;
             this.phase += frequency / sampleRate;
             this.phase %= 1;
         }
