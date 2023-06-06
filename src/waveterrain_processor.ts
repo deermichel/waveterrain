@@ -12,6 +12,11 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
         return [
             { name: "centerX", defaultValue: 0, minValue: -1, maxValue: 1 },
             { name: "centerZ", defaultValue: 0, minValue: -1, maxValue: 1 },
+            { name: "radiusX", defaultValue: 1, minValue: 0, maxValue: 1 },
+            { name: "radiusZ", defaultValue: 1, minValue: 0, maxValue: 1 },
+            { name: "freqX", defaultValue: 1, minValue: 0, maxValue: 10 },
+            { name: "freqZ", defaultValue: 1, minValue: 0, maxValue: 10 },
+            { name: "phaseShift", defaultValue: Math.PI / 2, minValue: 0, maxValue: 2 * Math.PI },
         ];
     }
 
@@ -30,6 +35,11 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
         // update internal parameters
         this.orbitParams.centerX = params.centerX[0];
         this.orbitParams.centerZ = params.centerZ[0];
+        this.orbitParams.radiusX = params.radiusX[0];
+        this.orbitParams.radiusZ = params.radiusZ[0];
+        this.orbitParams.freqX = params.freqX[0];
+        this.orbitParams.freqZ = params.freqZ[0];
+        this.orbitParams.phaseShift = params.phaseShift[0];
 
         for (let i = 0; i < numSamples; i++) {
             const { x, z } = this.orbitProvider.evaluate(this.phase, this.orbitParams);

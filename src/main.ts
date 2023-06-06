@@ -30,6 +30,26 @@ document.getElementById("cz")!.addEventListener("input", (event: any) => {
     const v = map(event.target.value, 0, 100, -1, 1);
     node.parameters.get("centerZ")!.value = v;
 });
+document.getElementById("rx")!.addEventListener("input", (event: any) => {
+    const v = map(event.target.value, 0, 100, 0, 1);
+    node.parameters.get("radiusX")!.value = v;
+});
+document.getElementById("rz")!.addEventListener("input", (event: any) => {
+    const v = map(event.target.value, 0, 100, 0, 1);
+    node.parameters.get("radiusZ")!.value = v;
+});
+document.getElementById("fx")!.addEventListener("input", (event: any) => {
+    const v = map(event.target.value, 0, 100, 0, 10);
+    node.parameters.get("freqX")!.value = v;
+});
+document.getElementById("fz")!.addEventListener("input", (event: any) => {
+    const v = map(event.target.value, 0, 100, 0, 10);
+    node.parameters.get("freqZ")!.value = v;
+});
+document.getElementById("ps")!.addEventListener("input", (event: any) => {
+    const v = map(event.target.value, 0, 100, 0, 2 * Math.PI);
+    node.parameters.get("phaseShift")!.value = v;
+});
 
 // click listener
 document.addEventListener("click", async () => {
