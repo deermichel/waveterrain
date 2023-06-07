@@ -24,6 +24,9 @@ let node: WaveTerrainNode;
 
 const xyPadCenter = document.getElementById("xypad-center")!;
 const xyPadRadius = document.getElementById("xypad-radius")!;
+const sliderFreqX = document.getElementById("slider-freqx")!;
+const sliderFreqY = document.getElementById("slider-freqy")!;
+const sliderPhaseShift = document.getElementById("slider-phaseshift")!;
 let target: HTMLElement | undefined;
 const pointerMoveListener = (event: PointerEvent) => {
     if (!target) throw new Error("No target");
@@ -34,7 +37,7 @@ const pointerMoveListener = (event: PointerEvent) => {
     const y = clamp(event.clientY - rect.top, 0, target.clientHeight);
 
     handle.style.left = `${x}px`;
-    handle.style.top = `${y}px`;
+    if (target.id.includes("xypad")) handle.style.top = `${y}px`;
 
     if (target === xyPadCenter) {
         node.parameters.get("centerX")!.value = map(x, 0, target.clientWidth, -1, 1);
@@ -42,12 +45,18 @@ const pointerMoveListener = (event: PointerEvent) => {
     } else if (target === xyPadRadius) {
         node.parameters.get("radiusX")!.value = map(x, 0, target.clientWidth, 0, 2);
         node.parameters.get("radiusZ")!.value = map(y, 0, target.clientHeight, 2, 0);
+    } else if (target === sliderFreqX) {
+        node.parameters.get("freqX")!.value = map(x, 0, target.clientWidth, 0, 10);
+    } else if (target === sliderFreqY) {
+        node.parameters.get("freqZ")!.value = map(x, 0, target.clientWidth, 0, 10);
+    } else if (target === sliderPhaseShift) {
+        node.parameters.get("phaseShift")!.value = map(x, 0, target.clientWidth, 0, 2 * Math.PI);
     }
 };
-[xyPadCenter, xyPadRadius].forEach((xyPad) => {
-    xyPad.addEventListener("pointerdown", () => {
-        target = xyPad;
-        xyPad.style.borderColor = "orange";
+[xyPadCenter, xyPadRadius, sliderFreqX, sliderFreqY, sliderPhaseShift].forEach((elem) => {
+    elem.addEventListener("pointerdown", () => {
+        target = elem;
+        elem.style.borderColor = "orange";
         window.addEventListener("pointermove", pointerMoveListener);
     });
 });
@@ -56,19 +65,6 @@ window.addEventListener("pointerup", () => {
     target = undefined;
     window.removeEventListener("pointermove", pointerMoveListener);
 });
-
-// document.getElementById("fx")!.addEventListener("input", (event: any) => {
-//     const v = map(event.target.value, 0, 10, 0, 10);
-//     node.parameters.get("freqX")!.value = v;
-// });
-// document.getElementById("fz")!.addEventListener("input", (event: any) => {
-//     const v = map(event.target.value, 0, 100, 0, 10);
-//     node.parameters.get("freqZ")!.value = v;
-// });
-// document.getElementById("ps")!.addEventListener("input", (event: any) => {
-//     const v = map(event.target.value, 0, 100, 0, 2 * Math.PI);
-//     node.parameters.get("phaseShift")!.value = v;
-// });
 
 // click listener
 document.addEventListener("click", async () => {
