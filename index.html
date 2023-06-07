@@ -11,8 +11,28 @@
             <div class="flex-1 bg-gray-200">
                 <canvas class="w-full h-full" id="scene"></canvas>
             </div>
-            <div class="w-96 bg-green-300">
-                <div>
+            <div class="bg-gray-800 text-white">
+
+                <div class="flex m-8">
+                    <div class="flex flex-col items-center">
+                        <div id="xypad-center" class="bg-gray-500 w-40 h-40 border-2 rounded-2xl">
+                            <div class="handle w-8 h-8 bg-white -translate-x-4 -translate-y-4 rounded-full relative"></div>
+                        </div>
+                        <span class="mt-1">Center</span>
+                    </div>
+
+                    <div class="w-8"></div>
+
+                    <div class="flex flex-col items-center">
+                        <div id="xypad-radius" class="bg-gray-500 w-40 h-40 border-2 rounded-2xl">
+                            <div class="handle w-8 h-8 bg-white -translate-x-4 -translate-y-4 rounded-full relative"></div>
+                        </div>
+                        <span class="mt-1">Radius</span>
+                    </div>
+                </div>
+
+
+                <!-- <div>
                     <input type="range" id="cx" min="0" max="100">
                     <label for="cx">Center X</label>
                 </div>
@@ -39,7 +59,7 @@
                 <div>
                     <input type="range" id="ps" min="0" max="100">
                     <label for="ps">Phase Shift</label>
-                </div>
+                </div> -->
             </div>
         </div>
         <script type="module" src="/src/main.ts"></script>

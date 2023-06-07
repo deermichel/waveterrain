@@ -24,7 +24,7 @@ class Scene {
     }
 
     public render() {
-        this.scene.rotation.y += 0.005;
+        // this.scene.rotation.y += 0.005;
         this.objects.forEach((object) => object.render());
         this.renderer.render(this.scene, this.camera);
     }

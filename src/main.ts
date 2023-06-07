@@ -4,7 +4,7 @@ import WaveTerrainNode from "./waveterrain_node";
 import SampledTerrain from "./sampled_terrain";
 import SampledOrbit from "./sampled_orbit";
 import Orbit from "./orbit";
-import { map } from "./utils";
+import { clamp, map } from "./utils";
 
 const segments = 16;
 
@@ -22,34 +22,53 @@ scene.add(orbit);
 let audioContext = new AudioContext();
 let node: WaveTerrainNode;
 
-document.getElementById("cx")!.addEventListener("input", (event: any) => {
-    const v = map(event.target.value, 0, 100, -1, 1);
-    node.parameters.get("centerX")!.value = v;
+const xyPadCenter = document.getElementById("xypad-center")!;
+const xyPadRadius = document.getElementById("xypad-radius")!;
+let target: HTMLElement | undefined;
+const pointerMoveListener = (event: PointerEvent) => {
+    if (!target) throw new Error("No target");
+    const handle = target.getElementsByClassName("handle")[0] as HTMLElement;
+
+    const rect = target.getBoundingClientRect();
+    const x = clamp(event.clientX - rect.left, 0, target.clientWidth);
+    const y = clamp(event.clientY - rect.top, 0, target.clientHeight);
+
+    handle.style.left = `${x}px`;
+    handle.style.top = `${y}px`;
+
+    if (target === xyPadCenter) {
+        node.parameters.get("centerX")!.value = map(x, 0, target.clientWidth, -1, 1);
+        node.parameters.get("centerZ")!.value = map(y, 0, target.clientHeight, -1, 1);
+    } else if (target === xyPadRadius) {
+        node.parameters.get("radiusX")!.value = map(x, 0, target.clientWidth, 0, 2);
+        node.parameters.get("radiusZ")!.value = map(y, 0, target.clientHeight, 2, 0);
+    }
+};
+[xyPadCenter, xyPadRadius].forEach((xyPad) => {
+    xyPad.addEventListener("pointerdown", () => {
+        target = xyPad;
+        xyPad.style.borderColor = "orange";
+        window.addEventListener("pointermove", pointerMoveListener);
+    });
 });
-document.getElementById("cz")!.addEventListener("input", (event: any) => {
-    const v = map(event.target.value, 0, 100, -1, 1);
-    node.parameters.get("centerZ")!.value = v;
+window.addEventListener("pointerup", () => {
+    if (target) target.style.borderColor = "white";
+    target = undefined;
+    window.removeEventListener("pointermove", pointerMoveListener);
 });
-document.getElementById("rx")!.addEventListener("input", (event: any) => {
-    const v = map(event.target.value, 0, 100, 0, 2);
-    node.parameters.get("radiusX")!.value = v;
-});
-document.getElementById("rz")!.addEventListener("input", (event: any) => {
-    const v = map(event.target.value, 0, 100, 0, 2);
-    node.parameters.get("radiusZ")!.value = v;
-});
-document.getElementById("fx")!.addEventListener("input", (event: any) => {
-    const v = map(event.target.value, 0, 10, 0, 10);
-    node.parameters.get("freqX")!.value = v;
-});
-document.getElementById("fz")!.addEventListener("input", (event: any) => {
-    const v = map(event.target.value, 0, 100, 0, 10);
-    node.parameters.get("freqZ")!.value = v;
-});
-document.getElementById("ps")!.addEventListener("input", (event: any) => {
-    const v = map(event.target.value, 0, 100, 0, 2 * Math.PI);
-    node.parameters.get("phaseShift")!.value = v;
-});
+
+// document.getElementById("fx")!.addEventListener("input", (event: any) => {
+//     const v = map(event.target.value, 0, 10, 0, 10);
+//     node.parameters.get("freqX")!.value = v;
+// });
+// document.getElementById("fz")!.addEventListener("input", (event: any) => {
+//     const v = map(event.target.value, 0, 100, 0, 10);
+//     node.parameters.get("freqZ")!.value = v;
+// });
+// document.getElementById("ps")!.addEventListener("input", (event: any) => {
+//     const v = map(event.target.value, 0, 100, 0, 2 * Math.PI);
+//     node.parameters.get("phaseShift")!.value = v;
+// });
 
 // click listener
 document.addEventListener("click", async () => {

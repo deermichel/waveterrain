@@ -6,4 +6,8 @@ const lerp = (v0: number, v1: number, t: number) => {
     return (1-t)*v0 + t*v1;
 }
 
-export { map, lerp };
+const clamp = (x: number, min: number, max: number) => {
+    return Math.min(Math.max(x, min), max);
+}
+
+export { map, lerp, clamp };
