@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>waveterrain</title>
+        <link rel="stylesheet" href="./index.css">
+    </head>
+    <body>
+        <div class="flex bg-red-200 h-screen w-screen">
+            <div class="flex-1 bg-gray-200">
+                <canvas class="w-full h-full" id="scene"></canvas>
+            </div>
+            <div class="bg-gray-800 text-white">
+
+                <div class="flex m-8">
+                    <div class="flex flex-col items-center">
+                        <div id="xypad-center" class="bg-gray-500 w-40 h-40 border-2 rounded-2xl">
+                            <div class="handle w-8 h-8 bg-white -translate-x-4 -translate-y-4 rounded-full relative"></div>
+                        </div>
+                        <span class="mt-1">Center XY</span>
+                    </div>
+
+                    <div class="w-8"></div>
+
+                    <div class="flex flex-col items-center">
+                        <div id="xypad-radius" class="bg-gray-500 w-40 h-40 border-2 rounded-2xl">
+                            <div class="handle w-8 h-8 bg-white -translate-x-4 -translate-y-4 rounded-full relative"></div>
+                        </div>
+                        <span class="mt-1">Radius XY</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center m-8">
+                    <div id="slider-freqx" class="w-full bg-gray-500 rounded-full border-2">
+                        <div class="handle w-8 h-8 bg-white -translate-x-4 rounded-full relative"></div>
+                    </div>
+                    <span class="mt-1">Freqency X</span>
+                </div>
+
+                <div class="flex flex-col items-center m-8">
+                    <div id="slider-freqy" class="w-full bg-gray-500 rounded-full border-2">
+                        <div class="handle w-8 h-8 bg-white -translate-x-4 rounded-full relative"></div>
+                    </div>
+                    <span class="mt-1">Freqency Y</span>
+                </div>
+
+                <div class="flex flex-col items-center m-8">
+                    <div id="slider-phaseshift" class="w-full bg-gray-500 rounded-full border-2">
+                        <div class="handle w-8 h-8 bg-white -translate-x-4 rounded-full relative"></div>
+                    </div>
+                    <span class="mt-1">Phase Shift</span>
+                </div>
+            </div>
+        </div>
+        <script type="module" src="/src/main.ts"></script>
+    </body>
+</html>
