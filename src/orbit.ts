@@ -26,7 +26,7 @@ class Orbit implements Renderable {
     private createSpheres() {
         const spheres = [];
         for (let i = 0; i < 256; i++) {
-            const geometry = new THREE.SphereGeometry(0.01, 8, 8);
+            const geometry = new THREE.SphereGeometry(0.03, 8, 8);
             const material = new THREE.MeshNormalMaterial({ side: THREE.FrontSide });
             const sphere = new THREE.Mesh(geometry, material);
             spheres.push(sphere);

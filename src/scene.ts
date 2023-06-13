@@ -14,8 +14,8 @@ class Scene {
         this.camera = this.createCamera();
         window.addEventListener("resize", () => this.resizeRenderer());
 
-        const axesHelper = new THREE.AxesHelper(5);
-        this.scene.add(axesHelper);
+        // const axesHelper = new THREE.AxesHelper(5);
+        // this.scene.add(axesHelper);
     }
 
     public add(object: Renderable) {
@@ -24,7 +24,7 @@ class Scene {
     }
 
     public render() {
-        // this.scene.rotation.y += 0.005;
+        this.scene.rotation.y += 0.002;
         this.objects.forEach((object) => object.render());
         this.renderer.render(this.scene, this.camera);
     }
@@ -43,8 +43,8 @@ class Scene {
 
     private createCamera() {
         const { width, height } = this.canvas.getBoundingClientRect();
-        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-        camera.position.set(0, 5, 4);
+        const camera = new THREE.PerspectiveCamera(30, width / height, 0.1, 1000);
+        camera.position.set(0, 4, 6);
         camera.lookAt(this.scene.position);
         return camera;
     }

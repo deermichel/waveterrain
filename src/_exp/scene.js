@@ -1,5 +1,4 @@
-import * as THREE from "/Users/deermichel/Desktop/three.js/build/three.module.js";
-// import * as THREE from "three";
+import * as THREE from "three";
 import { ParametricGeometry } from "three/addons/geometries/ParametricGeometry.js";
 import { VertexNormalsHelper } from "three/addons/helpers/VertexNormalsHelper.js";
 
