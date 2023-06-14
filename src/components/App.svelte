@@ -13,7 +13,7 @@
         app = new App(canvas);
 
         // start listener
-        window.addEventListener("click", () => {
+        document.addEventListener("click", () => {
             app.start();
             started = true;
         }, { once: true });
