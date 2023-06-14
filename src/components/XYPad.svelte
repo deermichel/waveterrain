@@ -40,7 +40,7 @@
 
 <!-- pad -->
 <div
-    class="w-40 h-40 rounded-2xl bg-gray-500"
+    class="w-40 h-40 rounded-2xl bg-gray-500 touch-none"
     bind:clientHeight={padHeight}
     bind:clientWidth={padWidth}
     bind:this={el}

@@ -41,7 +41,7 @@
 
 <!-- slider -->
 <div
-    class="w-full rounded-full bg-gray-500"
+    class="w-full rounded-full bg-gray-500 touch-none"
     bind:clientWidth={sliderWidth}
     bind:this={el}
     on:pointerdown={onPointerDown}
