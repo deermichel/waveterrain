@@ -77,12 +77,12 @@
     });
 </script>
 
-<div class="h-screen flex bg-gray-900">
+<div class="lg:h-screen flex flex-col lg:flex-row">
     <SceneComponent bind:canvas />
-    <div class="flex flex-col items-center w-[420px] py-8 overflow-x-auto bg-gray-800 text-white">
+    <div class="flex flex-col items-center lg:w-[420px] py-8 overflow-x-auto bg-gray-800 text-white">
         <span class="text-3xl font-mono mb-8">waveterrain</span>
 
-        {#if !started}
+        {#if started}
             <div class="flex flex-col h-full justify-between items-center">
                 <span class="text-xl font-mono">tap to start</span>
                 <span class="text-sm font-mono">(c) 2023 deermichel</span>
