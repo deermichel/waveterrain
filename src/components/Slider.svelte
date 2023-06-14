@@ -2,6 +2,8 @@
     import { clamp } from "../utils";
 
     export let v = 0.5;
+    export let resolution = undefined;
+    export let defaultValue = undefined;
 
     const handleSize = 32;
 
@@ -14,6 +16,11 @@
         const offsetX = event.clientX - rect.left - handleSize / 2;
 
         v = clamp(offsetX, 0, maxOffset) / maxOffset;
+
+        // step or fine mode
+        if (resolution && !event.getModifierState("Shift")) {
+            v = Math.round(v * resolution) / resolution;
+        }
     };
 
     const onPointerUp = () => {
@@ -21,9 +28,14 @@
         window.removeEventListener("pointermove", onPointerMove);
     };
 
-    const onPointerDown = () => {
+    const onPointerDown = (event: PointerEvent) => {
         window.addEventListener("pointerup", onPointerUp);
         window.addEventListener("pointermove", onPointerMove);
+
+        // reset to default
+        if (defaultValue && event.getModifierState("Alt")) {
+            v = defaultValue;
+        }
     };
 </script>
 

@@ -26,9 +26,15 @@
         window.removeEventListener("pointermove", onPointerMove);
     };
 
-    const onPointerDown = () => {
+    const onPointerDown = (event: PointerEvent) => {
         window.addEventListener("pointerup", onPointerUp);
         window.addEventListener("pointermove", onPointerMove);
+
+        // reset to default
+        if (event.getModifierState("Alt")) {
+            x = 0.5;
+            y = 0.5;
+        }
     };
 </script>
 

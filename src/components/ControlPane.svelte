@@ -37,19 +37,19 @@ import Control from "./Control.svelte";
     <!-- sliders -->
     <div class="flex flex-col mt-8">
         <Control label="Frequency X">
-            <Slider bind:v={freqX} />
+            <Slider bind:v={freqX} resolution={8} defaultValue={1/8} />
         </Control>
 
         <div class="h-8"></div>
 
         <Control label="Frequency Y">
-            <Slider bind:v={freqY} />
+            <Slider bind:v={freqY} resolution={8} defaultValue={1/8} />
         </Control>
 
         <div class="h-8"></div>
 
         <Control label="Phase Shift">
-            <Slider bind:v={phaseShift} />
+            <Slider bind:v={phaseShift} resolution={8} defaultValue={2/8} />
         </Control>
     </div>
 
