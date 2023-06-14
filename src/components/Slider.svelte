@@ -18,7 +18,7 @@
         v = clamp(offsetX, 0, maxOffset) / maxOffset;
 
         // step or fine mode
-        if (resolution && !event.getModifierState("Shift")) {
+        if (resolution && !event.shiftKey) {
             v = Math.round(v * resolution) / resolution;
         }
     };
@@ -32,8 +32,10 @@
         window.addEventListener("pointerup", onPointerUp);
         window.addEventListener("pointermove", onPointerMove);
 
+        console.log(event);
+
         // reset to default
-        if (defaultValue && event.getModifierState("Alt")) {
+        if (defaultValue && event.altKey) {
             v = defaultValue;
         }
     };

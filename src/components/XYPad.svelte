@@ -9,10 +9,12 @@
     let el: HTMLElement;
     let padHeight = 0;
     let padWidth = 0;
+    let pointerId = -1;
     $: maxOffsetX = padWidth - handleSize;
     $: maxOffsetY = padHeight - handleSize;
 
     const onPointerMove = (event: PointerEvent) => {
+        if (event.pointerId !== pointerId) return;
         const rect = el.getBoundingClientRect();
         const offsetX = event.clientX - rect.left - handleSize / 2;
         const offsetY = event.clientY - rect.top - handleSize / 2;
@@ -21,17 +23,19 @@
         y = clamp(offsetY, 0, maxOffsetY) / maxOffsetY;
     };
 
-    const onPointerUp = () => {
+    const onPointerUp = (event: PointerEvent) => {
+        if (event.pointerId !== pointerId) return;
         window.removeEventListener("pointerup", onPointerUp);
         window.removeEventListener("pointermove", onPointerMove);
     };
 
     const onPointerDown = (event: PointerEvent) => {
+        pointerId = event.pointerId;
         window.addEventListener("pointerup", onPointerUp);
         window.addEventListener("pointermove", onPointerMove);
 
         // reset to default
-        if (event.getModifierState("Alt")) {
+        if (event.altKey) {
             x = 0.5;
             y = 0.5;
         }
