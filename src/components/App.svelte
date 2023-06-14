@@ -37,9 +37,8 @@
 
         {#if !started}
             <!-- onboarding -->
-            <div class="flex flex-col h-full justify-between items-center">
+            <div class="flex-1 flex items-center">
                 <span class="text-xl">tap to start</span>
-                <span class="text-sm">(c) 2023 deermichel</span>
             </div>
         {:else}
             <!-- main controls -->
@@ -53,5 +52,7 @@
                 bind:phaseShift={app.phaseShift}
             />
         {/if}
+
+        <span class="text-sm mt-8">(c) 2023 deermichel</span>
     </div>
 </div>
