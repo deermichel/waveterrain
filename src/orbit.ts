@@ -6,8 +6,8 @@ class Orbit implements Renderable {
     private terrainProvider: TerrainProvider;
     private phase: number = 0;
 
-    constructor(orbit: OrbitProvider, terrain: TerrainProvider) {
-        this.spheres = this.createSpheres();
+    constructor(orbit: OrbitProvider, terrain: TerrainProvider, numSpheres: number = 256) {
+        this.spheres = this.createSpheres(numSpheres);
         this.orbitProvider = orbit;
         this.terrainProvider = terrain;
         this.updateSpheres();
@@ -23,9 +23,9 @@ class Orbit implements Renderable {
         this.phase %= 1;
     }
 
-    private createSpheres() {
+    private createSpheres(numSpheres: number) {
         const spheres = [];
-        for (let i = 0; i < 256; i++) {
+        for (let i = 0; i < numSpheres; i++) {
             const geometry = new THREE.SphereGeometry(0.03, 8, 8);
             const material = new THREE.MeshNormalMaterial({ side: THREE.FrontSide });
             const sphere = new THREE.Mesh(geometry, material);

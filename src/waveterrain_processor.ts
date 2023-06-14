@@ -1,5 +1,6 @@
 import SimpleOrbit, { type SimpleOrbitParams } from "./simple_orbit";
 import SimpleTerrain from "./simple_terrain";
+import Parameter from "./parameter";
 import { map } from "./utils";
 
 class WaveTerrainProcessor extends AudioWorkletProcessor {
@@ -8,14 +9,22 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
     private orbitParams: Partial<SimpleOrbitParams> = {};
     private phase: number = 0;
 
+    private centerX = new Parameter(WaveTerrainProcessor.parameterDescriptors[0].defaultValue);
+    private centerZ = new Parameter(WaveTerrainProcessor.parameterDescriptors[1].defaultValue);
+    private radiusX = new Parameter(WaveTerrainProcessor.parameterDescriptors[2].defaultValue);
+    private radiusZ = new Parameter(WaveTerrainProcessor.parameterDescriptors[3].defaultValue);
+    private freqX = new Parameter(WaveTerrainProcessor.parameterDescriptors[4].defaultValue);
+    private freqZ = new Parameter(WaveTerrainProcessor.parameterDescriptors[5].defaultValue);
+    private phaseShift = new Parameter(WaveTerrainProcessor.parameterDescriptors[6].defaultValue);
+
     static get parameterDescriptors() {
         return [
             { name: "centerX", defaultValue: 0, minValue: -1, maxValue: 1 },
             { name: "centerZ", defaultValue: 0, minValue: -1, maxValue: 1 },
             { name: "radiusX", defaultValue: 1, minValue: 0, maxValue: 2 },
             { name: "radiusZ", defaultValue: 1, minValue: 0, maxValue: 2 },
-            { name: "freqX", defaultValue: 1, minValue: 0, maxValue: 10 },
-            { name: "freqZ", defaultValue: 1, minValue: 0, maxValue: 10 },
+            { name: "freqX", defaultValue: 1, minValue: 0, maxValue: 8 },
+            { name: "freqZ", defaultValue: 1, minValue: 0, maxValue: 8 },
             { name: "phaseShift", defaultValue: Math.PI / 2, minValue: 0, maxValue: 2 * Math.PI },
         ];
     }
@@ -32,14 +41,14 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
         const numChannels = output.length;
         const numSamples = (numChannels > 0) ? output[0].length : 0;
 
-        // update internal parameters
-        this.orbitParams.centerX = params.centerX[0];
-        this.orbitParams.centerZ = params.centerZ[0];
-        this.orbitParams.radiusX = params.radiusX[0];
-        this.orbitParams.radiusZ = params.radiusZ[0];
-        this.orbitParams.freqX = params.freqX[0];
-        this.orbitParams.freqZ = params.freqZ[0];
-        this.orbitParams.phaseShift = params.phaseShift[0];
+        // update smoothed parameters
+        this.orbitParams.centerX = this.centerX.setAndTick(params.centerX[0]);
+        this.orbitParams.centerZ = this.centerZ.setAndTick(params.centerZ[0]);
+        this.orbitParams.radiusX = this.radiusX.setAndTick(params.radiusX[0]);
+        this.orbitParams.radiusZ = this.radiusZ.setAndTick(params.radiusZ[0]);
+        this.orbitParams.freqX = this.freqX.setAndTick(params.freqX[0]);
+        this.orbitParams.freqZ = this.freqZ.setAndTick(params.freqZ[0]);
+        this.orbitParams.phaseShift = this.phaseShift.setAndTick(params.phaseShift[0]);
 
         for (let i = 0; i < numSamples; i++) {
             const { x, z } = this.orbitProvider.evaluate(this.phase, this.orbitParams);
