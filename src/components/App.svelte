@@ -8,15 +8,15 @@
     let canvas: HTMLCanvasElement;
     let started: boolean = false;
 
-    // start listener
-    window.addEventListener("click", () => {
-        app.start();
-        started = true;
-    }, { once: true });
-
     onMount(() => {
         // init app
         app = new App(canvas);
+
+        // start listener
+        window.addEventListener("click", () => {
+            app.start();
+            started = true;
+        }, { once: true });
 
         // render loop
         const render = () => {
