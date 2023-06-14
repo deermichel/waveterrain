@@ -12,6 +12,7 @@
     let pointerId = -1;
     $: maxOffsetX = padWidth - handleSize;
     $: maxOffsetY = padHeight - handleSize;
+    $: active = pointerId !== -1;
 
     const onPointerMove = (event: PointerEvent) => {
         if (event.pointerId !== pointerId) return;
@@ -27,6 +28,7 @@
         if (event.pointerId !== pointerId) return;
         window.removeEventListener("pointerup", onPointerUp);
         window.removeEventListener("pointermove", onPointerMove);
+        pointerId = -1;
     };
 
     const onPointerDown = (event: PointerEvent) => {
@@ -44,7 +46,7 @@
 
 <!-- pad -->
 <div
-    class="w-40 h-40 rounded-2xl bg-gray-500 touch-none"
+    class="w-40 h-40 rounded-2xl bg-gray-700 touch-none"
     bind:clientHeight={padHeight}
     bind:clientWidth={padWidth}
     bind:this={el}
@@ -52,7 +54,8 @@
 >
     <!-- handle -->
     <div
-        class="rounded-full bg-white"
+        class="rounded-full bg-white transition-colors"
+        class:bg-rose-300={active}
         style:height="{handleSize}px"
         style:width="{handleSize}px"
         style:transform="translate({x * maxOffsetX}px, {y * maxOffsetY}px)"

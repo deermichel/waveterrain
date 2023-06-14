@@ -11,6 +11,7 @@
     let sliderWidth = 0;
     let pointerId = -1;
     $: maxOffset = sliderWidth - handleSize;
+    $: active = pointerId !== -1;
 
     const onPointerMove = (event: PointerEvent) => {
         if (event.pointerId !== pointerId) return;
@@ -29,6 +30,7 @@
         if (event.pointerId !== pointerId) return;
         window.removeEventListener("pointerup", onPointerUp);
         window.removeEventListener("pointermove", onPointerMove);
+        pointerId = -1;
     };
 
     const onPointerDown = (event: PointerEvent) => {
@@ -45,14 +47,15 @@
 
 <!-- slider -->
 <div
-    class="w-full rounded-full bg-gray-500 touch-none"
+    class="w-full rounded-full touch-none bg-gray-700"
     bind:clientWidth={sliderWidth}
     bind:this={el}
     on:pointerdown={onPointerDown}
 >
     <!-- handle -->
     <div
-        class="rounded-full bg-white"
+        class="rounded-full bg-white transition-colors"
+        class:bg-rose-300={active}
         style:height="{handleSize}px"
         style:width="{handleSize}px"
         style:transform="translate({v * maxOffset}px, 0)"
