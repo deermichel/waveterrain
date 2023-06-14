@@ -9,9 +9,11 @@
 
     let el: HTMLElement;
     let sliderWidth = 0;
+    let pointerId = -1;
     $: maxOffset = sliderWidth - handleSize;
 
     const onPointerMove = (event: PointerEvent) => {
+        if (event.pointerId !== pointerId) return;
         const rect = el.getBoundingClientRect();
         const offsetX = event.clientX - rect.left - handleSize / 2;
 
@@ -23,16 +25,16 @@
         }
     };
 
-    const onPointerUp = () => {
+    const onPointerUp = (event: PointerEvent) => {
+        if (event.pointerId !== pointerId) return;
         window.removeEventListener("pointerup", onPointerUp);
         window.removeEventListener("pointermove", onPointerMove);
     };
 
     const onPointerDown = (event: PointerEvent) => {
+        pointerId = event.pointerId;
         window.addEventListener("pointerup", onPointerUp);
         window.addEventListener("pointermove", onPointerMove);
-
-        console.log(event);
 
         // reset to default
         if (defaultValue && event.altKey) {
