@@ -4,8 +4,8 @@ class Terrain implements Renderable {
     private plane: THREE.Mesh;
     private provider: TerrainProvider;
 
-    constructor(provider: TerrainProvider, segments: number) {
-        this.plane = this.createPlane(segments);
+    constructor(provider: TerrainProvider, segments: number, size: number = 1) {
+        this.plane = this.createPlane(segments, size);
         this.provider = provider;
         this.updatePlane();
     }
@@ -18,10 +18,8 @@ class Terrain implements Renderable {
         this.updatePlane();
     }
 
-    private createPlane(segments: number) {
-        // TODO
-        segments *= 8;
-        const geometry = new THREE.PlaneGeometry(6, 6, segments, segments);
+    private createPlane(segments: number, size: number) {
+        const geometry = new THREE.PlaneGeometry(2 * size, 2 * size, segments * size, segments * size);
         const material = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide, flatShading: true });
         const plane = new THREE.Mesh(geometry, material);
 
@@ -45,7 +43,7 @@ class Terrain implements Renderable {
             const y = this.provider.evaluate(x, z);
             position.setY(i, y);
         }
-        // this.plane.geometry.computeVertexNormals();
+        this.plane.geometry.computeVertexNormals();
         position.needsUpdate = true;
     }
 }
