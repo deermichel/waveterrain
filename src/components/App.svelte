@@ -15,6 +15,7 @@
 
     let canvas: HTMLCanvasElement;
     let node: WaveTerrainNode;
+    let started: boolean = false;
     let centerX: number = 0.5;
     let centerY: number = 0.5;
     let radiusX: number = 0.5;
@@ -76,15 +77,26 @@
     });
 </script>
 
-<div class="w-screen h-screen flex bg-gray-900">
+<div class="h-screen flex bg-gray-900">
     <SceneComponent bind:canvas />
-    <ControlPane
-        bind:centerX
-        bind:centerY
-        bind:radiusX
-        bind:radiusY
-        bind:freqX
-        bind:freqY
-        bind:phaseShift
-    />
+    <div class="flex flex-col items-center w-[420px] py-8 overflow-x-auto bg-gray-800 text-white">
+        <span class="text-3xl font-mono mb-8">waveterrain</span>
+
+        {#if !started}
+            <div class="flex flex-col h-full justify-between items-center">
+                <span class="text-xl font-mono">tap to start</span>
+                <span class="text-sm font-mono">(c) 2023 deermichel</span>
+            </div>
+        {:else}
+            <ControlPane
+                bind:centerX
+                bind:centerY
+                bind:radiusX
+                bind:radiusY
+                bind:freqX
+                bind:freqY
+                bind:phaseShift
+            />
+        {/if}
+    </div>
 </div>

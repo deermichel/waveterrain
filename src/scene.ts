@@ -43,8 +43,8 @@ class Scene {
 
     private createCamera() {
         const { width, height } = this.canvas.getBoundingClientRect();
-        const camera = new THREE.PerspectiveCamera(30, width / height, 0.1, 1000);
-        camera.position.set(0, 4, 6);
+        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        camera.position.set(0, 2, 4);
         camera.lookAt(this.scene.position);
         return camera;
     }

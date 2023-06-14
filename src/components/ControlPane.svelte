@@ -13,10 +13,10 @@ import Control from "./Control.svelte";
     export let phaseShift: number;
 </script>
 
-<div class="bg-gray-800 text-white">
+<div class="">
 
     <!-- xy pads -->
-    <div class="flex m-8">
+    <div class="flex">
         <Control label="Center XY">
             <XYPad
                 bind:x={centerX}
@@ -35,7 +35,7 @@ import Control from "./Control.svelte";
     </div>
 
     <!-- sliders -->
-    <div class="flex flex-col m-8">
+    <div class="flex flex-col mt-8">
         <Control label="Frequency X">
             <Slider bind:v={freqX} />
         </Control>
