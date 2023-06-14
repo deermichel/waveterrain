@@ -6,6 +6,9 @@ import Terrain from "./terrain";
 import { map } from "./utils";
 import WaveTerrainNode from "./waveterrain_node";
 
+// @ts-ignore
+import WaveTerrainProcessor from "./waveterrain_processor?worker&url";
+
 const terrainSegments = 16;
 const orbitSegments = 64;
 
@@ -58,7 +61,7 @@ class App {
         this.audioContext = new AudioContext();
         this.audioContext.suspend();
 
-        await this.audioContext.audioWorklet.addModule("/src/waveterrain_processor.ts");
+        await this.audioContext.audioWorklet.addModule(WaveTerrainProcessor);
         this.node = new WaveTerrainNode(this.audioContext);
         this.node.connect(this.audioContext.destination);
     }
