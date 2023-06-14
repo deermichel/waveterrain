@@ -56,6 +56,7 @@ class App {
 
     private async setupAudio() {
         this.audioContext = new AudioContext();
+        this.audioContext.suspend();
 
         await this.audioContext.audioWorklet.addModule("/src/waveterrain_processor.ts");
         this.node = new WaveTerrainNode(this.audioContext);
