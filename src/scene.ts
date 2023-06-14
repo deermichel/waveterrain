@@ -33,6 +33,7 @@ class Scene {
         const renderer = new THREE.WebGLRenderer({ antialias: true, canvas: this.canvas });
         const { width, height } = this.canvas.getBoundingClientRect();
         renderer.setSize(width, height, false);
+        renderer.setPixelRatio(window.devicePixelRatio);
         return renderer;
     }
 
