@@ -56,3 +56,13 @@
         <span class="text-sm mt-8">(c) 2023 deermichel</span>
     </div>
 </div>
+
+<style>
+    @supports (-webkit-touch-callout: none) {
+        @media (min-width: 1024px) {
+            .lg\:h-screen {
+                height: -webkit-fill-available;
+            }
+        }
+    }
+</style>
