@@ -1,4 +1,4 @@
-import SimpleOrbit, { SimpleOrbitParams } from "./simple_orbit";
+import SimpleOrbit, { type SimpleOrbitParams } from "./simple_orbit";
 import SimpleTerrain from "./simple_terrain";
 import { map } from "./utils";
 

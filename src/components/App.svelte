@@ -77,15 +77,15 @@
     });
 </script>
 
-<div class="lg:h-screen flex flex-col lg:flex-row">
+<div class="lg:h-screen flex flex-col lg:flex-row select-none font-mono">
     <SceneComponent bind:canvas />
-    <div class="flex flex-col items-center lg:w-[420px] py-8 overflow-x-auto bg-gray-800 text-white">
-        <span class="text-3xl font-mono mb-8">waveterrain</span>
+    <div class="flex flex-col items-center lg:w-[420px] py-8 overflow-x-auto text-white">
+        <span class="text-3xl mb-8">waveterrain</span>
 
         {#if started}
             <div class="flex flex-col h-full justify-between items-center">
-                <span class="text-xl font-mono">tap to start</span>
-                <span class="text-sm font-mono">(c) 2023 deermichel</span>
+                <span class="text-xl">tap to start</span>
+                <span class="text-sm">(c) 2023 deermichel</span>
             </div>
         {:else}
             <ControlPane
