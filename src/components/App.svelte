@@ -33,7 +33,7 @@
 
     <!-- sidebar -->
     <div class="flex flex-col items-center lg:w-[420px] py-8 overflow-x-auto text-white">
-        <span class="text-3xl mb-8">waveterrain</span>
+        <span class="text-3xl font-bold mb-8">waveterrain</span>
 
         {#if !started}
             <!-- onboarding -->
@@ -53,7 +53,7 @@
             />
         {/if}
 
-        <span class="text-sm mt-8">(c) 2023 deermichel</span>
+        <span class="text-xs mt-8">(c) 2023 deermichel</span>
     </div>
 </div>
 

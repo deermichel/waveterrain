@@ -1,6 +1,5 @@
 <script lang="ts">
-    import { bind } from "svelte/internal";
-import Control from "./Control.svelte";
+    import Control from "./Control.svelte";
     import Slider from "./Slider.svelte";
     import XYPad from "./XYPad.svelte";
 
@@ -13,7 +12,12 @@ import Control from "./Control.svelte";
     export let phaseShift: number;
 </script>
 
-<div class="">
+<div class="flex flex-col">
+    <!-- oscillator params -->
+    <!-- <span class="text-xl self-center mb-2">Oscillator</span> -->
+
+    <!-- orbit params -->
+    <span class="text-xl self-center mb-4">--- Orbit ---</span>
 
     <!-- xy pads -->
     <div class="flex">
@@ -52,5 +56,4 @@ import Control from "./Control.svelte";
             <Slider bind:v={phaseShift} resolution={8} defaultValue={2/8} />
         </Control>
     </div>
-
 </div>

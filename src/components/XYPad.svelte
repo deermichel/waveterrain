@@ -54,7 +54,8 @@
 >
     <!-- handle -->
     <div
-        class="rounded-full bg-white transition-colors"
+        class="rounded-full transition-colors"
+        class:bg-white={!active}
         class:bg-rose-300={active}
         style:height="{handleSize}px"
         style:width="{handleSize}px"
