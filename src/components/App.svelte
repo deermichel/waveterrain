@@ -43,6 +43,7 @@
         {:else}
             <!-- main controls -->
             <ControlPane
+                bind:oscNote={app.oscNote}
                 bind:centerX={app.centerX}
                 bind:centerY={app.centerZ}
                 bind:radiusX={app.radiusX}

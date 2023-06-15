@@ -3,6 +3,7 @@
     import Slider from "./Slider.svelte";
     import XYPad from "./XYPad.svelte";
 
+    export let oscNote: number;
     export let centerX: number;
     export let centerY: number;
     export let radiusX: number;
@@ -14,10 +15,13 @@
 
 <div class="flex flex-col">
     <!-- oscillator params -->
-    <!-- <span class="text-xl self-center mb-2">Oscillator</span> -->
+    <span class="text-xl self-center mb-4">--- Oscillator ---</span>
+    <Control label="Note">
+        <Slider bind:v={oscNote} resolution={108} defaultValue={48/108} />
+    </Control>
 
     <!-- orbit params -->
-    <span class="text-xl self-center mb-4">--- Orbit ---</span>
+    <span class="text-xl self-center mb-4 mt-8">--- Orbit ---</span>
 
     <!-- xy pads -->
     <div class="flex">

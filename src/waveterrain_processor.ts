@@ -1,15 +1,14 @@
 import SimpleOrbit, { type SimpleOrbitParams } from "./simple_orbit";
 import SimpleTerrain from "./simple_terrain";
 import Parameter from "./parameter";
-import { map } from "./utils";
+import { map, noteToFreq } from "./utils";
 
 class WaveTerrainProcessor extends AudioWorkletProcessor {
     private terrainProvider: TerrainProvider;
     private orbitProvider: SimpleOrbit;
     private phase: number = 0;
 
-    private oscFreq = new Parameter(WaveTerrainProcessor.parameterDescriptors[0].defaultValue);
-
+    private oscFreq = new Parameter(noteToFreq(WaveTerrainProcessor.parameterDescriptors[0].defaultValue));
     private centerX = new Parameter(WaveTerrainProcessor.parameterDescriptors[1].defaultValue);
     private centerZ = new Parameter(WaveTerrainProcessor.parameterDescriptors[2].defaultValue);
     private radiusX = new Parameter(WaveTerrainProcessor.parameterDescriptors[3].defaultValue);
@@ -20,8 +19,7 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
 
     static get parameterDescriptors() {
         return [
-            { name: "osc.note", defaultValue: 48, minValue: 0, maxValue: 127 },
-
+            { name: "oscNote", defaultValue: 48, minValue: 0, maxValue: 127 },
             { name: "centerX", defaultValue: 0, minValue: -1, maxValue: 1 },
             { name: "centerZ", defaultValue: 0, minValue: -1, maxValue: 1 },
             { name: "radiusX", defaultValue: 1, minValue: 0, maxValue: 2 },
@@ -45,6 +43,7 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
         const numSamples = (numChannels > 0) ? output[0].length : 0;
 
         // update internal parameters
+        this.oscFreq.value = noteToFreq(params.oscNote[0]);
         this.centerX.value = params.centerX[0];
         this.centerZ.value = params.centerZ[0];
         this.radiusX.value = params.radiusX[0];
@@ -73,8 +72,7 @@ class WaveTerrainProcessor extends AudioWorkletProcessor {
             }
 
             // update phase
-            const frequency = 120;
-            this.phase += frequency / sampleRate;
+            this.phase += this.oscFreq.tick() / sampleRate;
             this.phase %= 1;
         }
 

@@ -20,6 +20,8 @@ class App {
     private orbitProvider: SampledOrbit;
 
     // parameters
+    get oscNote() { return map(this.node.parameters.get("oscNote").value, 0, 108, 0, 1); }
+    set oscNote(oscNote: number) { this.node.parameters.get("oscNote").value = map(oscNote, 0, 1, 0, 108); }
     get centerX() { return map(this.node.parameters.get("centerX").value, -1, 1, 0, 1); }
     set centerX(centerX: number) { this.node.parameters.get("centerX").value = map(centerX, 0, 1, -1, 1); }
     get centerZ() { return map(this.node.parameters.get("centerZ").value, -1, 1, 0, 1); }
