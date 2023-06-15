@@ -9,7 +9,7 @@ Imagine taking a 3D terrain and interpreting the height values along a path as s
 That's the concept behind wave terrain synthesis.
 
 Inspired by [this](https://mu.krj.st/assignments/osc_s.html) article, I created an interactive demo that allows you to explore wave terrain synthesis directly in your browser.
-It is at the same time my playground for cutting edge [web stuff](#tech-stack).
+It is at the same time my playground for cutting-edge [web stuff](#tech-stack).
 
 This project is explicitly open for contributions, and if you need inspiration, just pick one of the items from the [roadmap](#roadmap).
 If you have any further questions or want to discuss an idea, feel free to reach out to me.
@@ -33,6 +33,7 @@ Should this project become mature enough, I consider packaging it as a VST/AU pl
 - [ ] More orbits and terrains
 - [ ] Modulate parameters
 - [ ] Plot synthesized wave ("Analyze" tab, FFT?)
+- [ ] Camera controls, FPS counter and visualization settings ("Visual" tab)
 - [ ] Make it a full plugin (sponsoring?)
 - [ ] Refactor code :)
 
