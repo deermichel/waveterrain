@@ -54,10 +54,18 @@
             />
         {/if}
 
-        <span class="text-xs mt-8">(c) 2023 deermichel</span>
+        <!-- footer, copyright, links -->
+        <span class="text-xs mt-8">
+            (c)
+            {new Date().getFullYear()}
+            <a href="https://deermichel.me" target="_blank" class="underline">deermichel</a>
+            &bull;
+            <a href="https://github.com/deermichel/waveterrain" target="_blank" class="underline">GitHub</a>
+        </span>
     </div>
 </div>
 
+<!-- mobile safari viewport height scroll fix -->
 <style>
     @supports (-webkit-touch-callout: none) {
         @media (min-width: 1024px) {
