@@ -1,4 +1,9 @@
-# [waveterrain](https://deermichel.me/waveterrain/)
+# waveterrain
+
+Try it: [deermichel.me/waveterrain](https://deermichel.me/waveterrain/)
+
+[![deploy](https://github.com/deermichel/waveterrain/actions/workflows/deploy.yml/badge.svg)](https://github.com/deermichel/waveterrain/actions/workflows/deploy.yml)
+
 ![screenshot](img/screenshot.png)
 Imagine taking a 3D terrain and interpreting the height values along a path as samples of an audio signal. 
 That's the concept behind wave terrain synthesis.
