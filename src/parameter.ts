@@ -7,7 +7,7 @@ class Parameter {
     get value() { return this.internal; }
     set value(value: number) { this.target = value; }
 
-    constructor(initial: number, momentum: number = 0.05, eps: number = 0.001) {
+    constructor(initial: number, momentum: number = 0.001, eps: number = 0.001) {
         this.internal = initial;
         this.target = initial;
         this.momentum = momentum;
@@ -21,11 +21,6 @@ class Parameter {
             this.internal = this.momentum * this.target + (1 - this.momentum) * this.internal;
         }
         return this.internal;
-    }
-
-    public setAndTick(target: number) {
-        this.target = target;
-        return this.tick();
     }
 }
 

@@ -10,4 +10,8 @@ const clamp = (x: number, min: number, max: number) => {
     return Math.min(Math.max(x, min), max);
 }
 
-export { map, lerp, clamp };
+const noteToFreq = (note: number) => {
+    return 440 * Math.pow(2, (note - 69) / 12);
+}
+
+export { map, lerp, clamp, noteToFreq };
